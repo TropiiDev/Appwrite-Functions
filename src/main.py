@@ -35,9 +35,9 @@ def main(context):
       ]
     )
 
-    context.log(tracked_files.rows)
+    for file in tracked_files:
+      context.log(file['fileId'])
 
-    files = tracked_files
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
 
@@ -49,6 +49,6 @@ def main(context):
 
   return context.res.json(
     {
-      "files": files.rows
+      "message": "Finished"
     }
   )
