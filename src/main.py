@@ -6,6 +6,9 @@ from appwrite.services.tables_db import TablesDB
 from appwrite.services.storage import Storage
 from appwrite.query import Query
 from appwrite.exception import AppwriteException
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # This Appwrite function will be executed every time your function is triggered
 def main(context):
@@ -25,7 +28,7 @@ def main(context):
 
   try:
     tracked_files = tablesDB.list_rows(
-      database_id=os.environ['APPWRITE_DATABASE_ID'],
+      database_id=os.getenv('APPWRITE_DATABASE_ID'),
       table_id="trackedFiles",
       queries=[
         Query.limit(50)
