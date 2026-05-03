@@ -35,8 +35,8 @@ def main(context):
       ]
     )
 
-    for file in tracked_files:
-      context.log(file)
+    for i in range(len(tracked_files.rows)):
+      context.log(tracked_files.rows[i])
 
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
