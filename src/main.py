@@ -35,7 +35,7 @@ def main(context):
       ]
     )
 
-    context.log(tracked_files)
+    context.log(tracked_files.rows)
 
     files = tracked_files
   except AppwriteException as err:
@@ -49,6 +49,6 @@ def main(context):
 
   return context.res.json(
     {
-      "files": files
+      "files": files.rows
     }
   )
