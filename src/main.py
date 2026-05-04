@@ -44,7 +44,7 @@ def main(context):
         row_id=file_id
       )
 
-      context.log(file['fileId'])
+      context.log(file.data)
 
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
