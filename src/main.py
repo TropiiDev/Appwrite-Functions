@@ -24,11 +24,14 @@ def main(context):
   tablesDB = TablesDB(client)
   storage = Storage(client)
 
+  db_id = os.getenv('APPWRITE_DATABASE_ID')
+  bucket_id = os.getenv("APPWRITE_BUCKET_ID")
+
   files = None
 
   try:
     tracked_files = tablesDB.list_rows(
-      database_id=os.getenv('APPWRITE_DATABASE_ID'),
+      database_id=db_id,
       table_id="trackedFiles",
       queries=[
         Query.limit(50)
@@ -36,7 +39,15 @@ def main(context):
     )
 
     for i in range(len(tracked_files.rows)):
-      context.log(tracked_files.rows[i].id)
+      file_id = tracked_files.rows[i].id
+
+      file = tablesDB.get_row(
+        database_id=db_id,
+        table_id="trackedFiles",
+        row_id=file_id
+      )
+
+      context.log(file)
 
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
