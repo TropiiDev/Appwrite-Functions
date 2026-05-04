@@ -36,15 +36,14 @@ def main(context):
     )
 
     for i in range(len(tracked_files.rows)):
-      file_id = tracked_files.rows[i].id
+      file_id = tracked_files.rows[i].data['fileId']
 
-      file = tablesDB.get_row(
-        database_id=db_id,
-        table_id="trackedFiles",
-        row_id=file_id
+      storage.delete_file(
+        bucket_id=bucket_id,
+        file_id=file_id
       )
 
-      context.log(file.data['fileId'])
+      context.log(f"Deleted {len(tracked_files.rows)} images")
 
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
