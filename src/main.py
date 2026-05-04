@@ -32,10 +32,7 @@ def main(context):
   try:
     tracked_files = tablesDB.list_rows(
       database_id=db_id,
-      table_id="trackedFiles",
-      queries=[
-        Query.limit(50)
-      ]
+      table_id="trackedFiles"
     )
 
     for i in range(len(tracked_files.rows)):
@@ -47,7 +44,7 @@ def main(context):
         row_id=file_id
       )
 
-      context.log(file)
+      context.log(file.fileId)
 
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
