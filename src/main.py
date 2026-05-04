@@ -36,11 +36,18 @@ def main(context):
     )
 
     for i in range(len(tracked_files.rows)):
+      row_id = tracked_files.rows[i].id
       file_id = tracked_files.rows[i].data['fileId']
 
       storage.delete_file(
         bucket_id=bucket_id,
         file_id=file_id
+      )
+
+      tablesDB.delete_row(
+        database_id=db_id,
+        table_id="trackedFiles",
+        row_id=row_id
       )
 
       context.log(f"Deleted {len(tracked_files.rows)} images")
