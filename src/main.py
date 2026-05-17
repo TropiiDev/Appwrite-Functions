@@ -50,7 +50,7 @@ def main(context):
         row_id=row_id
       )
 
-      context.log(f"Deleted {len(tracked_files.rows)} images")
+    context.log(f"Deleted {len(tracked_files.rows)} images")
 
   except AppwriteException as err:
     context.error("Could not list users: " + repr(err))
